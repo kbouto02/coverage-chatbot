@@ -52,7 +52,7 @@
         "description": "health check"
       }
     },
-    "/coverage": {
+    "/coverages": {
       "get": {
         "parameters": [
           {
@@ -80,7 +80,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CoverageOut"
+                  "$ref": "#/components/schemas/CoveragesOut"
                 }
               }
             },
@@ -107,7 +107,7 @@
             "description": "Authentication error"
           }
         },
-        "summary": "all coverage",
+        "summary": "all coverages",
         "description": "Retrieve all coverage records",
         "security": [
           {
@@ -219,7 +219,7 @@
         ]
       }
     },
-    "/coverage/ceid/{ceid}": {
+    "/coverages/ceid/{ceid}": {
       "get": {
         "parameters": [
           {
@@ -316,7 +316,7 @@
         ]
       }
     },
-    "/coverage/name/{short_name}": {
+    "/coverages/name/{short_name}": {
       "get": {
         "parameters": [
           {
@@ -468,13 +468,13 @@
           }
         }
       },
-      "CoverageOut": {
+      "CoveragesOut": {
         "type": "object",
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/Pagination"
           },
-          "coverage": {
+          "coverages": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CoverageOut"
