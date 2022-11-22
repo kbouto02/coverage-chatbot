@@ -1,7 +1,7 @@
 {
   "info": {
-    "title": "Events API for Watson Assistant",
-    "version": "1.0.1"
+    "title": "Coverage API for Watson Assistant",
+    "version": "1.0.0"
   },
   "tags": [],
   "servers": [
@@ -52,7 +52,7 @@
         "description": "health check"
       }
     },
-    "/events": {
+    "/coverage": {
       "get": {
         "parameters": [
           {
@@ -80,7 +80,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventsOut"
+                  "$ref": "#/components/schemas/CoverageOut"
                 }
               }
             },
@@ -107,8 +107,8 @@
             "description": "Authentication error"
           }
         },
-        "summary": "all events",
-        "description": "Retrieve all event records",
+        "summary": "all coverage",
+        "description": "Retrieve all coverage records",
         "security": [
           {
             "ApiKeyAuth": []
@@ -122,7 +122,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventOut"
+                  "$ref": "#/components/schemas/CoverageOut"
                 }
               }
             },
@@ -149,13 +149,13 @@
             "description": "Authentication error"
           }
         },
-        "summary": "Insert a new event record",
-        "description": "Insert a new event record with the given attributes. Its new EID is returned.",
+        "summary": "Insert a new coverage record",
+        "description": "Insert a new coverage record with the given attributes. Its new CEID is returned.",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventIn"
+                "$ref": "#/components/schemas/CoverageIn"
               }
             }
           }
@@ -219,14 +219,14 @@
         ]
       }
     },
-    "/events/eid/{eid}": {
+    "/coverage/ceid/{ceid}": {
       "get": {
         "parameters": [
           {
             "in": "path",
-            "name": "eid",
+            "name": "ceid",
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "required": true
           }
@@ -236,7 +236,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventOut"
+                  "$ref": "#/components/schemas/CoverageOut"
                 }
               }
             },
@@ -263,8 +263,8 @@
             "description": "Not found"
           }
         },
-        "summary": "Event record by EID",
-        "description": "Retrieve a single event record by its EID",
+        "summary": "Coverage record by CEID",
+        "description": "Retrieve a single coverage record by its CEID",
         "security": [
           {
             "ApiKeyAuth": []
@@ -275,9 +275,9 @@
         "parameters": [
           {
             "in": "path",
-            "name": "eid",
+            "name": "ceid",
             "schema": {
-              "type": "integer"
+              "type": "string"
             },
             "required": true
           }
@@ -307,8 +307,8 @@
             "description": "Not found"
           }
         },
-        "summary": "Delete an event record by EID",
-        "description": "Delete a single event record identified by its EID.",
+        "summary": "Delete an coverage record by CEID",
+        "description": "Delete a single coverage record identified by its CEID.",
         "security": [
           {
             "ApiKeyAuth": []
@@ -316,7 +316,7 @@
         ]
       }
     },
-    "/events/name/{short_name}": {
+    "/coverage/name/{short_name}": {
       "get": {
         "parameters": [
           {
@@ -333,7 +333,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventOut"
+                  "$ref": "#/components/schemas/CoverageOut"
                 }
               }
             },
@@ -360,8 +360,8 @@
             "description": "Not found"
           }
         },
-        "summary": "Event record by name",
-        "description": "Retrieve a single event record by its short name",
+        "summary": "Coverage record by name",
+        "description": "Retrieve a single coverage record by its short name",
         "security": [
           {
             "ApiKeyAuth": []
@@ -445,78 +445,84 @@
           }
         }
       },
-      "EventOut": {
+      "CoverageOut": {
         "type": "object",
         "properties": {
-          "begindate": {
-            "type": "string",
-            "format": "date"
+          "motion": {
+            "type": "string"
           },
-          "enddate": {
-            "type": "string",
-            "format": "date"
+          "ptsauto": {
+            "type": "string"
           },
-          "contact": {
+          "ptsda": {
             "type": "string"
           },
           "shortname": {
             "type": "string"
           },
-          "location": {
+          "ceid": {
             "type": "string"
           },
-          "eid": {
-            "type": "integer"
+          "mgrdaat": {
+            "type": "string"
           }
         }
       },
-      "EventsOut": {
+      "CoverageOut": {
         "type": "object",
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/Pagination"
           },
-          "events": {
+          "coverage": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/EventOut"
+              "$ref": "#/components/schemas/CoverageOut"
             }
           }
         }
       },
-      "EventIn": {
+      "CoverageIn": {
         "type": "object",
         "properties": {
-          "begindate": {
-            "type": "string",
-            "format": "date"
-          },
-          "enddate": {
-            "type": "string",
-            "format": "date"
-          },
-          "contact": {
+          "motion": {
             "type": "string",
             "minLength": 0,
-            "maxLength": 255
+            "maxLength": 60
+          },
+          "ptsauto": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 60
+          },
+          "ptsda": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 60
           },
           "shortname": {
             "type": "string",
             "minLength": 0,
-            "maxLength": 20
+            "maxLength": 30
           },
-          "location": {
+          "mgrdaat": {
             "type": "string",
             "minLength": 0,
-            "maxLength": 60
+            "maxLength": 255
+          },
+          "ceid": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 10
           }
         },
         "required": [
-          "begindate",
-          "contact",
-          "enddate",
-          "location",
-          "shortname"
+          "motion",
+          "ptsauto",
+          "ptsda",
+          "mgrdaat",
+          "shortname",
+          "ceid"
         ]
       }
     },
