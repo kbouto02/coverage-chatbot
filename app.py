@@ -1,5 +1,5 @@
 # Custom extension for IBM Watson Assistant which provides a
-# REST API around a single database table (COVERAGE).
+# REST API around a single database table (COVERAGES).
 #
 # The code demonstrates how a simple REST API can be developed and
 # then deployed as serverless app to IBM Cloud Code Engine.
@@ -19,8 +19,8 @@ from apiflask.validators import Length, Range
 from flask_sqlalchemy import SQLAlchemy
 
 # Set how this API should be titled and the current version
-API_TITLE='Coverage API for Watson Assistant'
-API_VERSION='1.0.1'
+API_TITLE='Coverages API for Watson Assistant'
+API_VERSION='1.0.0'
 
 # create the app
 app = APIFlask(__name__, title=API_TITLE, version=API_VERSION)
@@ -93,7 +93,7 @@ db = SQLAlchemy(app)
 
 
 # sample records to be inserted after table recreation
-sample_coverage=[
+sample_coverages=[
     {
         "shortname":"Alidade",
         "ceid": "6cfh6",
@@ -114,10 +114,10 @@ sample_coverage=[
 ]
 
 
-# Schema for table “COVERAGE"
-# Set default schema to "COVERAGE"
+# Schema for table “COVERAGES"
+# Set default schema to "COVERAGES"
 class CoverageModel(db.Model):
-    __tablename__ = ‘COVERAGE’
+    __tablename__ = ‘COVERAGES’
     __table_args__ = TABLE_ARGS
     shortname = db.Column(‘PARTNAME',db.String(30))
     ceid = db.Column(‘CEID’,db.String(10))
@@ -126,7 +126,7 @@ class CoverageModel(db.Model):
     ptsda = db.Column(‘PTSDA’, db.String(60))
     mgrdaat = db.Column(‘DAATECHMGR',db.String(255))
 
-# the Python output for Coverage
+# the Python output for Coverages
 class CoverageOutSchema(Schema):
     shortname = String()
     ceid = String()
@@ -135,7 +135,7 @@ class CoverageOutSchema(Schema):
     ptsda = String()
     mgrdaat = String()
 
-# the Python input for Coverage
+# the Python input for Coverages
 class CoverageInSchema(Schema):
     shortname = String(required=True, validate=Length(0, 30))
     ceid = String(required=True, validate=Length(0, 10))
@@ -149,8 +149,8 @@ class CoverageQuerySchema(Schema):
     page = Integer(load_default=1)
     per_page = Integer(load_default=20, validate=Range(max=30))
 
-class CoverageOutSchema(Schema):
-    coverage = List(Nested(CoverageOutSchema))
+class CoveragesOutSchema(Schema):
+    coverages = List(Nested(CoverageOutSchema))
     pagination = Nested(PaginationSchema)
 
 # register a callback to verify the token
@@ -162,7 +162,7 @@ def verify_token(token):
         return None
 
 # retrieve a single coverage record by CEID
-@app.get('/coverage/ceid/<int:ceid>')
+@app.get('/coverages/ceid/<int:ceid>')
 @app.output(CoverageOutSchema)
 @app.auth_required(auth)
 def get_coverage_ceid(ceid):
@@ -172,7 +172,7 @@ def get_coverage_ceid(ceid):
     return CoverageModel.query.get_or_404(ceid)
 
 # retrieve a single coverage record by name
-@app.get(‘/coverage/name/<string:short_name>')
+@app.get(‘/coverages/name/<string:short_name>')
 @app.output(CoverageOutSchema)
 @app.auth_required(auth)
 def get_coverage_name(short_name):
@@ -183,14 +183,14 @@ def get_coverage_name(short_name):
     return CoverageModel.query.filter(CoverageModel.shortname.like(search)).first()
 
 
-# get all coverage
-@app.get(‘/c’overage)
+# get all coverages
+@app.get(‘/coverages’)
 @app.input(CoverageQuerySchema, 'query')
 #@app.input(CoverageInSchema(partial=True), location='query')
-@app.output(CoverageOutSchema)
+@app.output(CoveragesOutSchema)
 @app.auth_required(auth)
-def get_coverage(query):
-    """all coverage
+def get_coverages(query):
+    """all coverages
     Retrieve all coverage records
     """
     pagination = CoverageModel.query.paginate(
@@ -198,12 +198,12 @@ def get_coverage(query):
         per_page=query['per_page']
     )
     return {
-        ‘cover’age: pagination.items,
+        ‘coverages’: pagination.items,
         'pagination': pagination_builder(pagination)
     }
 
 # create a coverage record
-@app.post(‘/coverage’)
+@app.post(‘/coverages’)
 @app.input(CoverageInSchema, location='json')
 @app.output(CoverageOutSchema, 201)
 @app.auth_required(auth)
