@@ -1,5 +1,5 @@
 # Custom extension for IBM Watson Assistant which provides a
-# REST API around a single database table (EVENTS).
+# REST API around a single database table (COVERAGE).
 #
 # The code demonstrates how a simple REST API can be developed and
 # then deployed as serverless app to IBM Cloud Code Engine.
@@ -19,7 +19,7 @@ from apiflask.validators import Length, Range
 from flask_sqlalchemy import SQLAlchemy
 
 # Set how this API should be titled and the current version
-API_TITLE='Events API for Watson Assistant'
+API_TITLE='Coverage API for Watson Assistant'
 API_VERSION='1.0.1'
 
 # create the app
@@ -93,61 +93,64 @@ db = SQLAlchemy(app)
 
 
 # sample records to be inserted after table recreation
-sample_events=[
+sample_coverage=[
     {
-        "shortname":"Think 2022",
-        "location": "Boston, US",
-        "begindate":"2022-05-10",
-        "enddate":"2022-05-11",
-        "contact": "https://www.ibm.com/events/think/"
+        "shortname":"Alidade",
+        "ceid": "6cfh6",
+        "motion":"Sell",
+        "ptsauto":"",
+        "ptsda": "Kenny Boutot",
+	"mgrdaat": "Mike Verona"
     },
     {
-        "shortname":"IDUG EMEA 2022",
-        "location": "Edinburgh, Scotland",
-        "begindate":"2022-10-22",
-        "enddate":"2022-10-26",
-        "contact": "https://www.idug.org"
+        "shortname":"Activeworx/Miria",
+        "ceid": "2rw5p3sj",
+        "motion":"Sell",
+        "ptsauto":"Surajeet Dey",
+        "ptsda": "John Power",
+	"mgrdaat": "Mike Verona"
     },
 
 ]
 
 
-# Schema for table "EVENTS"
-# Set default schema to "EVENTS"
-class EventModel(db.Model):
-    __tablename__ = 'EVENTS'
+# Schema for table “COVERAGE"
+# Set default schema to "COVERAGE"
+class CoverageModel(db.Model):
+    __tablename__ = ‘COVERAGE’
     __table_args__ = TABLE_ARGS
-    eid = db.Column('EID',db.Integer, primary_key=True)
-    shortname = db.Column('SHORTNAME',db.String(20))
-    location= db.Column('LOCATION',db.String(60))
-    begindate = db.Column('BEGINDATE', db.Date)
-    enddate = db.Column('ENDDATE', db.Date)
-    contact = db.Column('CONTACT',db.String(255))
+    shortname = db.Column(‘PARTNAME',db.String(30))
+    ceid = db.Column(‘CEID’,db.String(10))
+    motion = db.Column(‘MOTION',db.String(60))
+    ptsauto = db.Column(‘PTSAUTO', db.String(60))
+    ptsda = db.Column(‘PTSDA’, db.String(60))
+    mgrdaat = db.Column(‘DAATECHMGR',db.String(255))
 
-# the Python output for Events
-class EventOutSchema(Schema):
-    eid = Integer()
+# the Python output for Coverage
+class CoverageOutSchema(Schema):
     shortname = String()
-    location = String()
-    begindate = Date()
-    enddate = Date()
-    contact = String()
+    ceid = String()
+    motion = String()
+    ptsauto = String()
+    ptsda = String()
+    mgrdaat = String()
 
-# the Python input for Events
-class EventInSchema(Schema):
-    shortname = String(required=True, validate=Length(0, 20))
-    location = String(required=True, validate=Length(0, 60))
-    begindate = Date(required=True)
-    enddate = Date(required=True)
-    contact = String(required=True, validate=Length(0, 255))
+# the Python input for Coverage
+class CoverageInSchema(Schema):
+    shortname = String(required=True, validate=Length(0, 30))
+    ceid = String(required=True, validate=Length(0, 10))
+    motion = String(required=True, validate=Length(0, 60))
+    ptsauto = String(required=True, validate=Length(0, 60))
+    ptsda = String(required=True, validate=Length(0, 60))
+    mgrdaat = String(required=True, validate=Length(0,255))
 
 # use with pagination
-class EventQuerySchema(Schema):
+class CoverageQuerySchema(Schema):
     page = Integer(load_default=1)
     per_page = Integer(load_default=20, validate=Range(max=30))
 
-class EventsOutSchema(Schema):
-    events = List(Nested(EventOutSchema))
+class CoverageOutSchema(Schema):
+    coverage = List(Nested(CoverageOutSchema))
     pagination = Nested(PaginationSchema)
 
 # register a callback to verify the token
@@ -158,97 +161,97 @@ def verify_token(token):
     else:
         return None
 
-# retrieve a single event record by EID
-@app.get('/events/eid/<int:eid>')
-@app.output(EventOutSchema)
+# retrieve a single coverage record by CEID
+@app.get('/coverage/ceid/<int:ceid>')
+@app.output(CoverageOutSchema)
 @app.auth_required(auth)
-def get_event_eid(eid):
-    """Event record by EID
-    Retrieve a single event record by its EID
+def get_coverage_ceid(ceid):
+    “””Coverage record by CEID
+    Retrieve a single coverage record by its CEID
     """
-    return EventModel.query.get_or_404(eid)
+    return CoverageModel.query.get_or_404(ceid)
 
-# retrieve a single event record by name
-@app.get('/events/name/<string:short_name>')
-@app.output(EventOutSchema)
+# retrieve a single coverage record by name
+@app.get(‘/coverage/name/<string:short_name>')
+@app.output(CoverageOutSchema)
 @app.auth_required(auth)
-def get_event_name(short_name):
-    """Event record by name
-    Retrieve a single event record by its short name
+def get_coverage_name(short_name):
+    “””Coverage record by name
+    Retrieve a single coverage record by its short name
     """
     search="%{}%".format(short_name)
-    return EventModel.query.filter(EventModel.shortname.like(search)).first()
+    return CoverageModel.query.filter(CoverageModel.shortname.like(search)).first()
 
 
-# get all events
-@app.get('/events')
-@app.input(EventQuerySchema, 'query')
-#@app.input(EventInSchema(partial=True), location='query')
-@app.output(EventsOutSchema)
+# get all coverage
+@app.get(‘/c’overage)
+@app.input(CoverageQuerySchema, 'query')
+#@app.input(CoverageInSchema(partial=True), location='query')
+@app.output(CoverageOutSchema)
 @app.auth_required(auth)
-def get_events(query):
-    """all events
-    Retrieve all event records
+def get_coverage(query):
+    """all coverage
+    Retrieve all coverage records
     """
-    pagination = EventModel.query.paginate(
+    pagination = CoverageModel.query.paginate(
         page=query['page'],
         per_page=query['per_page']
     )
     return {
-        'events': pagination.items,
+        ‘cover’age: pagination.items,
         'pagination': pagination_builder(pagination)
     }
 
-# create an event record
-@app.post('/events')
-@app.input(EventInSchema, location='json')
-@app.output(EventOutSchema, 201)
+# create a coverage record
+@app.post(‘/coverage’)
+@app.input(CoverageInSchema, location='json')
+@app.output(CoverageOutSchema, 201)
 @app.auth_required(auth)
-def create_event(data):
-    """Insert a new event record
-    Insert a new event record with the given attributes. Its new EID is returned.
+def create_coverage(data):
+    """Insert a new coverage record
+    Insert a new coverage record with the given attributes. Its new CEID is returned.
     """
-    event = EventModel(**data)
-    db.session.add(event)
+    coverage = CoverageModel(**data)
+    db.session.add(coverage)
     db.session.commit()
-    return event
+    return coverage
 
 
-# delete an event record
-@app.delete('/events/eid/<int:eid>')
-@app.output({}, 204)
-@app.auth_required(auth)
-def delete_event(eid):
-    """Delete an event record by EID
-    Delete a single event record identified by its EID.
-    """
-    event = EventModel.query.get_or_404(eid)
-    db.session.delete(event)
-    db.session.commit()
-    return ''
+## delete an event record
+#@app.delete('/events/eid/<int:eid>')
+#@app.output({}, 204)
+#@app.auth_required(auth)
+#def delete_event(eid):
+#    """Delete an event record by EID
+#    Delete a single event record identified by its EID.
+#    """
+#    event = EventModel.query.get_or_404(eid)
+#    db.session.delete(event)
+#    db.session.commit()
+#    return ''
 
-# (re-)create the event table with sample records
-@app.post('/database/recreate')
-@app.input({'confirmation': Boolean(load_default=False)}, location='query')
-#@app.output({}, 201)
-@app.auth_required(auth)
-def create_database(query):
-    """Recreate the database schema
-    Recreate the database schema and insert sample data.
-    Request must be confirmed by passing query parameter.
-    """
-    if query['confirmation'] is True:
-        db.drop_all()
-        db.create_all()
-        for e in sample_events:
-            event = EventModel(**e)
-            db.session.add(event)
-        db.session.commit()
-    else:
-        abort(400, message='confirmation is missing',
-            detail={"error":"check the API for how to confirm"})
-        return {"message": "error: confirmation is missing"}
-    return {"message":"database recreated"}
+## (re-)create the event table with sample records
+#@app.post('/database/recreate')
+#@app.input({'confirmation': Boolean(load_default=False)}, location='query')
+##@app.output({}, 201)
+#@app.auth_required(auth)
+#def create_database(query):
+#    """Recreate the database schema
+#    Recreate the database schema and insert sample data.
+#    Request must be confirmed by passing query parameter.
+#    """
+#    if query['confirmation'] is True:
+#        db.drop_all()
+#        db.create_all()
+#        for e in sample_events:
+#            event = EventModel(**e)
+#            db.session.add(event)
+#        db.session.commit()
+#    else:
+#        abort(400, message='confirmation is missing',
+#            detail={"error":"check the API for how to confirm"})
+#        return {"message": "error: confirmation is missing"}
+#    return {"message":"database recreated"}
 
 
 # default "homepage", also needed for health check by Code Engine
@@ -258,7 +261,7 @@ def print_default():
     health check
     """
     # returning a dict equals to use jsonify()
-    return {'message': 'This is the Events API server'}
+    return {'message': 'This is the Coverage API server'}
 
 
 # Start the actual app
