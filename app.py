@@ -166,7 +166,7 @@ def verify_token(token):
 @app.output(CoverageOutSchema)
 @app.auth_required(auth)
 def get_coverage_ceid(ceid):
-    “””Coverage record by CEID
+    """Coverage record by CEID
     Retrieve a single coverage record by its CEID
     """
     return CoverageModel.query.get_or_404(ceid)
