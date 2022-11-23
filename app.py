@@ -119,6 +119,7 @@ sample_coverages=[
 class CoverageModel(db.Model):
     __tablename__ = 'COVERAGES'
     __table_args__ = TABLE_ARGS
+    cid = db.Column('CID',db.Integer, primary_key=True)
     shortname = db.Column('PARTNAME',db.String(30))
     ceid = db.Column('CEID',db.String(10))
     motion = db.Column('MOTION',db.String(60))
@@ -128,6 +129,7 @@ class CoverageModel(db.Model):
 
 # the Python output for Coverages
 class CoverageOutSchema(Schema):
+    cid = Integer()
     shortname = String()
     ceid = String()
     motion = String()
