@@ -184,7 +184,7 @@ def get_coverage_name(short_name):
 
 
 # get all coverages
-@app.get('/coverages’)
+@app.get('/coverages')
 @app.input(CoverageQuerySchema, 'query')
 #@app.input(CoverageInSchema(partial=True), location='query')
 @app.output(CoveragesOutSchema)
