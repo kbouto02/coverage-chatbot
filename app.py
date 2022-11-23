@@ -217,41 +217,41 @@ def create_coverage(data):
     return coverage
 
 
-## delete an event record
-#@app.delete('/events/eid/<int:eid>')
-#@app.output({}, 204)
-#@app.auth_required(auth)
-#def delete_event(eid):
-#    """Delete an event record by EID
-#    Delete a single event record identified by its EID.
-#    """
-#    event = EventModel.query.get_or_404(eid)
-#    db.session.delete(event)
-#    db.session.commit()
-#    return ''
+# delete a coverage record
+@app.delete('/coverages/ceid/<int:ceid>')
+@app.output({}, 204)
+@app.auth_required(auth)
+def delete_coverage(ceid):
+    """Delete a coverage record by CEID
+    Delete a single coverage record identified by its CEID.
+    """
+    coverage = CoverageModel.query.get_or_404(ceid)
+    db.session.delete(coverage)
+    db.session.commit()
+    return ''
 
-## (re-)create the event table with sample records
-#@app.post('/database/recreate')
-#@app.input({'confirmation': Boolean(load_default=False)}, location='query')
-##@app.output({}, 201)
-#@app.auth_required(auth)
-#def create_database(query):
-#    """Recreate the database schema
-#    Recreate the database schema and insert sample data.
-#    Request must be confirmed by passing query parameter.
-#    """
-#    if query['confirmation'] is True:
-#        db.drop_all()
-#        db.create_all()
-#        for e in sample_events:
-#            event = EventModel(**e)
-#            db.session.add(event)
-#        db.session.commit()
-#    else:
-#        abort(400, message='confirmation is missing',
-#            detail={"error":"check the API for how to confirm"})
-#        return {"message": "error: confirmation is missing"}
-#    return {"message":"database recreated"}
+# (re-)create the coverage table with sample records
+@app.post('/database/recreate')
+@app.input({'confirmation': Boolean(load_default=False)}, location='query')
+#@app.output({}, 201)
+@app.auth_required(auth)
+def create_database(query):
+    """Recreate the database schema
+    Recreate the database schema and insert sample data.
+    Request must be confirmed by passing query parameter.
+    """
+    if query['confirmation'] is True:
+        db.drop_all()
+        db.create_all()
+        for e in sample_coverages:
+            coverage = CoverageModel(**e)
+            db.session.add(coverage)
+        db.session.commit()
+    else:
+        abort(400, message='confirmation is missing',
+            detail={"error":"check the API for how to confirm"})
+        return {"message": "error: confirmation is missing"}
+    return {"message":"database recreated"}
 
 
 # default "homepage", also needed for health check by Code Engine
