@@ -172,11 +172,11 @@ def get_coverage_ceid(ceid):
     return CoverageModel.query.get_or_404(ceid)
 
 # retrieve a single coverage record by name
-@app.get(‘/coverages/name/<string:short_name>')
+@app.get('/coverages/name/<string:short_name>')
 @app.output(CoverageOutSchema)
 @app.auth_required(auth)
 def get_coverage_name(short_name):
-    “””Coverage record by name
+    """Coverage record by name
     Retrieve a single coverage record by its short name
     """
     search="%{}%".format(short_name)
@@ -184,7 +184,7 @@ def get_coverage_name(short_name):
 
 
 # get all coverages
-@app.get(‘/coverages’)
+@app.get('/coverages’)
 @app.input(CoverageQuerySchema, 'query')
 #@app.input(CoverageInSchema(partial=True), location='query')
 @app.output(CoveragesOutSchema)
@@ -198,12 +198,12 @@ def get_coverages(query):
         per_page=query['per_page']
     )
     return {
-        ‘coverages’: pagination.items,
+        'coverages': pagination.items,
         'pagination': pagination_builder(pagination)
     }
 
 # create a coverage record
-@app.post(‘/coverages’)
+@app.post('/coverages')
 @app.input(CoverageInSchema, location='json')
 @app.output(CoverageOutSchema, 201)
 @app.auth_required(auth)
