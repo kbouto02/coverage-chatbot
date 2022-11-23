@@ -117,14 +117,14 @@ sample_coverages=[
 # Schema for table “COVERAGES"
 # Set default schema to "COVERAGES"
 class CoverageModel(db.Model):
-    __tablename__ = ‘COVERAGES’
+    __tablename__ = 'COVERAGES'
     __table_args__ = TABLE_ARGS
-    shortname = db.Column(‘PARTNAME',db.String(30))
-    ceid = db.Column(‘CEID’,db.String(10))
-    motion = db.Column(‘MOTION',db.String(60))
-    ptsauto = db.Column(‘PTSAUTO', db.String(60))
-    ptsda = db.Column(‘PTSDA’, db.String(60))
-    mgrdaat = db.Column(‘DAATECHMGR',db.String(255))
+    shortname = db.Column('PARTNAME',db.String(30))
+    ceid = db.Column('CEID',db.String(10))
+    motion = db.Column('MOTION',db.String(60))
+    ptsauto = db.Column('PTSAUTO', db.String(60))
+    ptsda = db.Column('PTSDA', db.String(60))
+    mgrdaat = db.Column('DAATECHMGR',db.String(255))
 
 # the Python output for Coverages
 class CoverageOutSchema(Schema):
