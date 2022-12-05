@@ -95,20 +95,57 @@ db = SQLAlchemy(app)
 # sample records to be inserted after table recreation
 sample_coverages=[
     {
-        "shortname":"Alidade",
-        "ceid": "6cfh6",
-        "motion":"Sell",
-        "ptsauto":"",
-        "ptsda": "Kenny Boutot",
-	"mgrdaat": "Mike Verona"
+        "shortname":"Sample",
+        "ceid": "Sample",
+        "motion":"Sample",
+        "ptsauto":"Sample",
+        "ptsda": "Sample",
+	"mgrdaat": "Sample",
+    	"bpspubcloud": "Sample",
+    	"vadptspow": "Sample",
+    	"vadptsstor": "Sample",
+    	"vadptssw": "Sample",
+    	"crosstps": "Sample",
+    	"bpspow": "Sample",
+    	"bpsstor": "Sample",
+    	"bpsz": "Sample",
+    	"bpsda": "Sample",
+    	"bpsauto": "Sample",
+    	"bpssec": "Sample",
+    	"bpssus": "Sample",
+    	"ptspow": "Sample",
+    	"ptsstor": "Sample",
+    	"ptsz": "Sample",
+    	"ptssec": "Sample",
+    	"ptssus": "Sample",
+    	"ibmfin": "Sample",
     },
     {
-        "shortname":"Activeworx/Miria",
-        "ceid": "2rw5p3sj",
-        "motion":"Sell",
-        "ptsauto":"Surajeet Dey",
-        "ptsda": "John Power",
-	"mgrdaat": "Mike Verona"
+        "shortname":"Demonstration",
+        "ceid": "Demonstration",
+        "motion":"Demonstration",
+        "ptsauto":"Demonstration",
+        "ptsda": "Demonstration",
+	"mgrdaat": "Demonstration",
+	"mgrdaat": "Demonstration",
+    	"bpspubcloud": "Demonstration",
+    	"vadptspow": "Demonstration",
+    	"vadptsstor": "Demonstration",
+    	"vadptssw": "Demonstration",
+    	"crosstps": "Demonstration",
+    	"bpspow": "Demonstration",
+    	"bpsstor": "Demonstration",
+    	"bpsz": "Demonstration",
+    	"bpsda": "Demonstration",
+    	"bpsauto": "Demonstration",
+    	"bpssec": "Demonstration",
+    	"bpssus": "Demonstration",
+    	"ptspow": "Demonstration",
+    	"ptsstor": "Demonstration",
+    	"ptsz": "Demonstration",
+    	"ptssec": "Demonstration",
+    	"ptssus": "Demonstration",
+    	"ibmfin": "Demonstration",
     },
 
 ]
@@ -123,9 +160,28 @@ class CoverageModel(db.Model):
     shortname = db.Column('PARTNAME',db.String(30))
     ceid = db.Column('CEID',db.String(10))
     motion = db.Column('MOTION',db.String(60))
-    ptsauto = db.Column('PTSAUTO', db.String(60))
-    ptsda = db.Column('PTSDA', db.String(60))
+    ptsauto = db.Column('PTSAUTO',db.String(60))
+    ptsda = db.Column('PTSDA',db.String(60))
     mgrdaat = db.Column('DAATECHMGR',db.String(255))
+    bpspubcloud = db.Column('BPSPUBCLOUD',db.String(255))
+    vadptspow = db.Column('PTSVADPOW',db.String(255))
+    vadptsstor = db.Column('PTSVADSTOR',db.String(255))
+    vadptssw = db.Column('PTSVADSW',db.String(255))
+    crosstps = db.Column('CROSSTPS',db.String(255))
+    bpspow = db.Column('BPSPOW',db.String(255))
+    bpsstor = db.Column('BPSSTOR',db.String(255))
+    bpsz = db.Column('BPSZ',db.String(255))
+    bpsda = db.Column('BPSDA',db.String(255))
+    bpsauto = db.Column('BPSAUTO',db.String(255))
+    bpssec = db.Column('BPSSEC',db.String(255))
+    bpssus = db.Column('BPSSUS',db.String(255))
+    ptspow = db.Column('PTSPOW',db.String(255))
+    ptsstor = db.Column('PTSSTOR',db.String(255))
+    ptsz = db.Column('PTSZ',db.String(255))
+    ptssec = db.Column('PTSSEC',db.String(255))
+    ptssus = db.Column('PTSSUS',db.String(255))
+    ibmfin = db.Column('IBMFIN',db.String(255))
+
 
 # the Python output for Coverages
 class CoverageOutSchema(Schema):
@@ -136,6 +192,24 @@ class CoverageOutSchema(Schema):
     ptsauto = String()
     ptsda = String()
     mgrdaat = String()
+    bpspubcloud = String()
+    vadptspow = String()
+    vadptsstor = String()
+    vadptssw = String()
+    crosstps = String()
+    bpspow = String()
+    bpsstor = String()
+    bpsz = String()
+    bpsda = String()
+    bpsauto = String()
+    bpssec = String()
+    bpssus = String()
+    ptspow = String()
+    ptsstor = String()
+    ptsz = String()
+    ptssec = String()
+    ptssus = String()
+    ibmfin = String()
 
 # the Python input for Coverages
 class CoverageInSchema(Schema):
@@ -145,6 +219,24 @@ class CoverageInSchema(Schema):
     ptsauto = String(required=True, validate=Length(0, 60))
     ptsda = String(required=True, validate=Length(0, 60))
     mgrdaat = String(required=True, validate=Length(0,255))
+    bpspubcloud = String(required=True, validate=Length(0,255))
+    vadptspow = String(required=True, validate=Length(0,255))
+    vadptsstor = String(required=True, validate=Length(0,255))
+    vadptssw = String(required=True, validate=Length(0,255))
+    crosstps = String(required=True, validate=Length(0,255))
+    bpspow = String(required=True, validate=Length(0,255))
+    bpsstor = String(required=True, validate=Length(0,255))
+    bpsz = String(required=True, validate=Length(0,255))
+    bpsda = String(required=True, validate=Length(0,255))
+    bpsauto = String(required=True, validate=Length(0,255))
+    bpssec = String(required=True, validate=Length(0,255))
+    bpssus = String(required=True, validate=Length(0,255))
+    ptspow = String(required=True, validate=Length(0,255))
+    ptsstor = String(required=True, validate=Length(0,255))
+    ptsz = String(required=True, validate=Length(0,255))
+    ptssec = String(required=True, validate=Length(0,255))
+    ptssus = String(required=True, validate=Length(0,255))
+    ibmfin = String(required=True, validate=Length(0,255))
 
 # use with pagination
 class CoverageQuerySchema(Schema):
