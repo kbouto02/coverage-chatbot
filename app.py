@@ -157,11 +157,11 @@ class CoverageModel(db.Model):
     __tablename__ = 'COVERAGES'
     __table_args__ = TABLE_ARGS
     cid = db.Column('CID',db.Integer, primary_key=True)
-    shortname = db.Column('PARTNAME',db.String(30))
-    ceid = db.Column('CEID',db.String(10))
-    motion = db.Column('MOTION',db.String(60))
-    ptsauto = db.Column('PTSAUTO',db.String(60))
-    ptsda = db.Column('PTSDA',db.String(60))
+    shortname = db.Column('PARTNAME',db.String(255))
+    ceid = db.Column('CEID',db.String(255))
+    motion = db.Column('MOTION',db.String(255))
+    ptsauto = db.Column('PTSAUTO',db.String(255))
+    ptsda = db.Column('PTSDA',db.String(255))
     mgrdaat = db.Column('DAATECHMGR',db.String(255))
     bpspubcloud = db.Column('BPSPUBCLOUD',db.String(255))
     vadptspow = db.Column('PTSVADPOW',db.String(255))
@@ -213,11 +213,11 @@ class CoverageOutSchema(Schema):
 
 # the Python input for Coverages
 class CoverageInSchema(Schema):
-    shortname = String(required=True, validate=Length(0, 30))
-    ceid = String(required=True, validate=Length(0, 10))
-    motion = String(required=True, validate=Length(0, 60))
-    ptsauto = String(required=True, validate=Length(0, 60))
-    ptsda = String(required=True, validate=Length(0, 60))
+    shortname = String(required=True, validate=Length(0, 255))
+    ceid = String(required=True, validate=Length(0, 255))
+    motion = String(required=True, validate=Length(0, 255))
+    ptsauto = String(required=True, validate=Length(0, 255))
+    ptsda = String(required=True, validate=Length(0, 255))
     mgrdaat = String(required=True, validate=Length(0,255))
     bpspubcloud = String(required=True, validate=Length(0,255))
     vadptspow = String(required=True, validate=Length(0,255))
@@ -241,7 +241,7 @@ class CoverageInSchema(Schema):
 # use with pagination
 class CoverageQuerySchema(Schema):
     page = Integer(load_default=1)
-    per_page = Integer(load_default=20, validate=Range(max=30))
+    per_page = Integer(load_default=20, validate=Range(max=255))
 
 class CoveragesOutSchema(Schema):
     coverages = List(Nested(CoverageOutSchema))
