@@ -465,6 +465,60 @@
           },
           "mgrdaat": {
             "type": "string"
+          },
+          "bpspubcloud": {
+            "type": "string"
+          },
+          "vadptspow": {
+            "type": "string"
+          },
+          "vadptsstor": {
+            "type": "string"
+          },
+          "vadptssw": {
+            "type": "string"
+          },
+          "crosstps": {
+            "type": "string"
+          },
+          "bpspow": {
+            "type": "string"
+          },
+          "bpsstor": {
+            "type": "string"
+          },
+          "bpsz": {
+            "type": "string"
+          },
+          "bpsda": {
+            "type": "string"
+          },
+          "bpsauto": {
+            "type": "string"
+          },
+          "bpssec": {
+            "type": "string"
+          },
+          "bpssus": {
+            "type": "string"
+          },
+          "ptspow": {
+            "type": "string"
+          },
+          "ptsstor": {
+            "type": "string"
+          },
+          "ptsz": {
+            "type": "string"
+          },
+          "ptssec": {
+            "type": "string"
+          },
+          "ptssus": {
+            "type": "string"
+          },
+          "ibmfin": {
+            "type": "string"
           }
         }
       },
@@ -488,24 +542,114 @@
           "motion": {
             "type": "string",
             "minLength": 0,
-            "maxLength": 60
+            "maxLength": 255
           },
           "ptsauto": {
             "type": "string",
             "minLength": 0,
-            "maxLength": 60
+            "maxLength": 255
           },
           "ptsda": {
             "type": "string",
             "minLength": 0,
-            "maxLength": 60
+            "maxLength": 255
           },
           "shortname": {
             "type": "string",
             "minLength": 0,
-            "maxLength": 30
+            "maxLength": 255
           },
           "mgrdaat": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "bpspubcloud": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "vadptspow": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "vadptsstor": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "vadptssw": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "crosstps": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "bpspow": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "bpsstor": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "bpsz": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "bpsda": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "bpsauto": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "bpssec": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "bpssus": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "ptspow": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "ptsstor": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "ptsz": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "ptssec": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "ptssus": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "ibmfin": {
             "type": "string",
             "minLength": 0,
             "maxLength": 255
@@ -513,7 +657,7 @@
           "ceid": {
             "type": "string",
             "minLength": 0,
-            "maxLength": 10
+            "maxLength": 255
           }
         },
         "required": [
