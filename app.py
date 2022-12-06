@@ -256,7 +256,7 @@ def verify_token(token):
         return None
 
 # retrieve a single coverage record by CEID
-@app.get('/coverages/ceid/<int:ceid>')
+@app.get('/coverages/ceid/<string:ceid>')
 @app.output(CoverageOutSchema)
 @app.auth_required(auth)
 def get_coverage_ceid(ceid):
