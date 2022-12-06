@@ -263,7 +263,8 @@ def get_coverage_ceid(ceid):
     """Coverage record by CEID
     Retrieve a single coverage record by its CEID
     """
-    return CoverageModel.query.get_or_404(ceid)
+    search="%{}%".format(ceid)
+    return CoverageModel.query.filter(CoverageModel.ceid.ilike(search)).first()
 
 # retrieve a single coverage record by name
 @app.get('/coverages/name/<string:short_name>')
