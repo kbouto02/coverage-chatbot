@@ -11,6 +11,7 @@
 
 import os
 import ast
+import urllib.parse
 from dotenv import load_dotenv
 from apiflask import APIFlask, Schema, HTTPTokenAuth, PaginationSchema, pagination_builder, abort
 from apiflask.fields import Integer, String, Boolean, Date, List, Nested
@@ -275,7 +276,7 @@ def get_coverage_name(short_name):
     Retrieve a single coverage record by its short name
     """
     search="%{}%".format(short_name)
-    return CoverageModel.query.filter(CoverageModel.shortname.ilike(search)).first()
+    return CoverageModel.query.filter(CoverageModel.shortname.ilike(urllib.parse.quote(search))).first()
 
 
 # get all coverages
