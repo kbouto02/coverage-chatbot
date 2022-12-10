@@ -275,11 +275,11 @@ def get_coverage_name(short_name):
     """Coverage record by name
     Retrieve a single coverage record by its short name
     """
-    search="%{}%"
-    new_search=search.replace("+","%20")
-    fnew_search=new_search.format(short_name)
+    search="%{}%".format(short_name.replace("+","_"))
+#    new_search=search.replace("+","%20")
+#    fnew_search=new_search.format(short_name)
 #    encoded_search=urllib.parse.quote(search).format(short_name)
-    return CoverageModel.query.filter(CoverageModel.shortname.ilike(fnew_search)).first()
+    return CoverageModel.query.filter(CoverageModel.shortname.ilike(search)).first()
 
 
 # get all coverages
