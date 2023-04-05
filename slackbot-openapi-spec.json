@@ -448,34 +448,13 @@
       "CoverageOut": {
         "type": "object",
         "properties": {
-          "motion": {
-            "type": "string"
-          },
-          "ptsauto": {
-            "type": "string"
-          },
-          "ptsda": {
-            "type": "string"
-          },
           "shortname": {
             "type": "string"
           },
           "ceid": {
             "type": "string"
           },
-          "mgrdaat": {
-            "type": "string"
-          },
-          "bpspubcloud": {
-            "type": "string"
-          },
-          "vadptspow": {
-            "type": "string"
-          },
-          "vadptsstor": {
-            "type": "string"
-          },
-          "vadptssw": {
+          "motion": {
             "type": "string"
           },
           "crosstps": {
@@ -485,9 +464,6 @@
             "type": "string"
           },
           "bpsstor": {
-            "type": "string"
-          },
-          "bpsz": {
             "type": "string"
           },
           "bpsda": {
@@ -502,13 +478,19 @@
           "bpssus": {
             "type": "string"
           },
+          "bpscross": {
+            "type": "string"
+          },
           "ptspow": {
             "type": "string"
           },
           "ptsstor": {
             "type": "string"
           },
-          "ptsz": {
+          "ptsda": {
+            "type": "string"
+          },
+          "ptsauto": {
             "type": "string"
           },
           "ptssec": {
@@ -517,7 +499,7 @@
           "ptssus": {
             "type": "string"
           },
-          "ibmfin": {
+          "ptscross": {
             "type": "string"
           }
         }
@@ -539,47 +521,17 @@
       "CoverageIn": {
         "type": "object",
         "properties": {
-          "motion": {
-            "type": "string",
-            "minLength": 0,
-            "maxLength": 255
-          },
-          "ptsauto": {
-            "type": "string",
-            "minLength": 0,
-            "maxLength": 255
-          },
-          "ptsda": {
-            "type": "string",
-            "minLength": 0,
-            "maxLength": 255
-          },
           "shortname": {
             "type": "string",
             "minLength": 0,
             "maxLength": 255
           },
-          "mgrdaat": {
+          "ceid": {
             "type": "string",
             "minLength": 0,
             "maxLength": 255
           },
-          "bpspubcloud": {
-            "type": "string",
-            "minLength": 0,
-            "maxLength": 255
-          },
-          "vadptspow": {
-            "type": "string",
-            "minLength": 0,
-            "maxLength": 255
-          },
-          "vadptsstor": {
-            "type": "string",
-            "minLength": 0,
-            "maxLength": 255
-          },
-          "vadptssw": {
+          "motion": {
             "type": "string",
             "minLength": 0,
             "maxLength": 255
@@ -595,11 +547,6 @@
             "maxLength": 255
           },
           "bpsstor": {
-            "type": "string",
-            "minLength": 0,
-            "maxLength": 255
-          },
-          "bpsz": {
             "type": "string",
             "minLength": 0,
             "maxLength": 255
@@ -624,6 +571,11 @@
             "minLength": 0,
             "maxLength": 255
           },
+          "bpscross": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
           "ptspow": {
             "type": "string",
             "minLength": 0,
@@ -634,7 +586,12 @@
             "minLength": 0,
             "maxLength": 255
           },
-          "ptsz": {
+          "ptsda": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "ptsauto": {
             "type": "string",
             "minLength": 0,
             "maxLength": 255
@@ -649,12 +606,7 @@
             "minLength": 0,
             "maxLength": 255
           },
-          "ibmfin": {
-            "type": "string",
-            "minLength": 0,
-            "maxLength": 255
-          },
-          "ceid": {
+          "ptscross": {
             "type": "string",
             "minLength": 0,
             "maxLength": 255
